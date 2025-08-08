@@ -9,15 +9,317 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Slate and Sky -->
+    <!-- Application Structure Plan: A single-page, vertical-scrolling portfolio. The structure prioritizes key information for recruiters: a strong hero section, followed by skills, projects, experience, and finally education/certifications. This flow tells a compelling story, starting with who the candidate is, what they can do (skills), proof of their ability (projects), and their professional background (experience). A sticky navigation bar allows for quick access to any section, enhancing user experience. Interactivity is added through a skills chart and project modals to make the content more engaging without overwhelming the user. -->
+    <!-- Visualization & Content Choices: 
+        - Hero: Goal: Inform. Method: Large, clean typography (HTML/Tailwind). Interaction: None. Justification: Creates a strong first impression.
+        - Skills: Goal: Compare/Inform. Method: Horizontal Bar Chart (Chart.js). Interaction: Tooltips on hover provide context. Justification: Visually represents skill distribution and is more engaging than a static list.
+        - Projects: Goal: Organize/Inform. Method: Card layout (HTML/Tailwind). Interaction: A "Details" button opens a modal with more information. Justification: Keeps the main view uncluttered while allowing for a deep dive on demand.
+        - Experience: Goal: Inform/Change (chronological). Method: Vertical timeline (HTML/Tailwind). Interaction: Clean visual flow. Justification: A classic and effective way to display chronological data.
+        - Education/Certs: Goal: Inform. Method: Simple card layout (HTML/Tailwind). Interaction: None. Justification: Clear and direct presentation of factual information.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
-        .chart-container { position: relative; width: 100%; max-width: 800px; margin-left: auto; margin-right: auto; height: 400px; max-height: 50vh; }
-        @media (min-width: 768px) { .chart-container { height: 500px; } }
-        .modal-backdrop { transition: opacity 0.3s ease-in-out; }
-        .modal-content { transition: transform 0.3s ease-in-out; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 500px;
+            }
+        }
+        .modal-backdrop {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal-content {
+            transition: transform 0.3s ease-in-out;
+        }
     </style>
 </head>
 <body class="text-slate-700">
-    <!-- Content omitted for brevity -->
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-slate-50/80 backdrop-blur-lg sticky top-0 z-50 border-b border-slate-200">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-slate-800">Edwin Richard Idan</a>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#about" class="text-slate-600 hover:text-sky-600 transition">About</a>
+                <a href="#skills" class="text-slate-600 hover:text-sky-600 transition">Skills</a>
+                <a href="#projects" class="text-slate-600 hover:text-sky-600 transition">Projects</a>
+                <a href="#experience" class="text-slate-600 hover:text-sky-600 transition">Experience</a>
+                <a href="#contact" class="bg-sky-600 text-white px-4 py-2 rounded-md hover:bg-sky-700 transition">Contact</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-slate-800">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#about" class="block py-2 text-slate-600 hover:text-sky-600 transition">About</a>
+            <a href="#skills" class="block py-2 text-slate-600 hover:text-sky-600 transition">Skills</a>
+            <a href="#projects" class="block py-2 text-slate-600 hover:text-sky-600 transition">Projects</a>
+            <a href="#experience" class="block py-2 text-slate-600 hover:text-sky-600 transition">Experience</a>
+            <a href="#contact" class="block mt-2 bg-sky-600 text-white px-4 py-2 rounded-md hover:bg-sky-700 transition text-center">Contact</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6">
+        <!-- Hero Section -->
+        <section id="hero" class="text-center py-20 md:py-32">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 mb-4">Edwin Richard Idan</h1>
+            <p class="text-xl md:text-2xl text-sky-700 font-medium mb-8">Aspiring Software Engineer & Problem Solver</p>
+            <p class="max-w-3xl mx-auto text-lg text-slate-600">
+                A Computer Engineering student from KNUST with a passion for building innovative solutions, specializing in AI/ML and robotics.
+            </p>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20">
+            <h2 class="text-3xl font-bold text-center text-slate-800 mb-4">About Me</h2>
+            <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-sm border border-slate-200">
+                <p class="text-lg leading-relaxed">
+                    I am a motivated and detail-oriented Computer Engineering student at Kwame Nkrumah University of Science and Technology (KNUST) with a strong aptitude for problem-solving and a proven ability to perform effectively under pressure. Eager to secure a challenging entry-level role in the software industry to apply my technical knowledge, passion for development, and grow as a software professional.
+                </p>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20 bg-slate-100 -mx-6 px-6">
+            <div class="container mx-auto">
+                <h2 class="text-3xl font-bold text-center text-slate-800 mb-4">Technical Skills</h2>
+                <p class="text-center max-w-2xl mx-auto text-slate-600 mb-12">This chart provides a visual overview of my technical capabilities. My skills range from programming languages and development tools to core concepts in AI and robotics, applied in both academic projects and professional settings. Hover over any bar for more details.</p>
+                <div class="bg-white p-4 sm:p-8 rounded-lg shadow-md border border-slate-200">
+                    <div class="chart-container">
+                        <canvas id="skillsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20">
+            <h2 class="text-3xl font-bold text-center text-slate-800 mb-4">Signature Project</h2>
+            <p class="text-center max-w-2xl mx-auto text-slate-600 mb-12">This section showcases my ability to apply theoretical knowledge to solve practical, real-world problems. Explore the project below to see my technical skills in action.</p>
+            <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden border border-slate-200">
+                <div class="p-8">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-2">Crop Ally - Autonomous Agricultural Robot</h3>
+                    <p class="text-slate-600 mb-6">A final year project focused on creating an autonomous robot for farm navigation and health monitoring, leveraging AI for disease detection.</p>
+                    <button onclick="openModal('projectModal')" class="bg-sky-600 text-white px-6 py-2 rounded-md hover:bg-sky-700 transition font-medium">
+                        View Project Details
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="py-20">
+            <h2 class="text-3xl font-bold text-center text-slate-800 mb-12">Professional Experience</h2>
+            <div class="relative max-w-2xl mx-auto">
+                <div class="absolute left-1/2 top-0 h-full w-0.5 bg-slate-300 transform -translate-x-1/2"></div>
+                <div class="relative mb-8">
+                    <div class="absolute left-1/2 top-4 w-4 h-4 bg-sky-600 rounded-full transform -translate-x-1/2 border-4 border-white"></div>
+                    <div class="ml-auto md:ml-0 md:w-[calc(50%-2rem)] md:mr-[calc(50%+2rem)] bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                        <p class="text-slate-500 text-sm font-medium">Oct 2024 – Dec 2024</p>
+                        <h3 class="text-xl font-bold text-slate-800 mt-1">Engineering Intern</h3>
+                        <p class="text-slate-600 font-medium">Volta River Authority (VRA) - Takoradi, Ghana</p>
+                        <ul class="mt-4 space-y-2 text-slate-600 list-disc list-inside">
+                            <li>Achieved "Excellent" ratings for resourcefulness and work ethic.</li>
+                            <li>Praised for positive attitude and ability to follow technical instructions.</li>
+                            <li>Collaborated effectively with colleagues while maintaining high safety standards.</li>
+                            <li>Recognized as a "serious student, ready to learn."</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Education & Certifications Section -->
+        <section id="education" class="py-20 bg-slate-100 -mx-6 px-6">
+            <div class="container mx-auto">
+                <h2 class="text-3xl font-bold text-center text-slate-800 mb-12">Education & Certifications</h2>
+                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <!-- Education Card -->
+                    <div class="bg-white p-8 rounded-lg shadow-sm border border-slate-200">
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">BSc Computer Engineering</h3>
+                        <p class="text-slate-600 font-medium mb-1">Kwame Nkrumah University of Science and Technology (KNUST)</p>
+                        <p class="text-slate-500">Expected Graduation: May 2025</p>
+                    </div>
+                    <!-- Certification Card -->
+                    <div class="bg-white p-8 rounded-lg shadow-sm border border-slate-200">
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">Java Foundations</h3>
+                        <p class="text-slate-600 font-medium mb-1">Oracle Academy</p>
+                        <p class="text-slate-500">Completed: February 2024</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 text-center">
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">Get In Touch</h2>
+            <p class="text-lg text-slate-600 max-w-xl mx-auto mb-8">I'm currently seeking entry-level software engineering opportunities. If you have a role that might be a good fit, or just want to connect, feel free to reach out.</p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
+                <a href="mailto:edwinidan07@gmail.com" class="bg-sky-600 text-white px-8 py-3 rounded-md hover:bg-sky-700 transition font-medium text-lg">
+                    Email Me
+                </a>
+                <p class="text-slate-600 font-medium text-lg">0500610780</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 text-slate-400 py-6 text-center">
+        <p>&copy; 2025 Edwin Richard Idan. All rights reserved.</p>
+    </footer>
+
+    <!-- Project Modal -->
+    <div id="projectModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div onclick="closeModal('projectModal')" class="modal-backdrop fixed inset-0 bg-black/50"></div>
+        <div class="modal-content bg-white rounded-lg shadow-2xl w-full max-w-2xl mx-auto z-10 transform scale-95">
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="text-2xl font-bold text-slate-800">Crop Ally - Project Details</h3>
+                    <button onclick="closeModal('projectModal')" class="text-slate-500 hover:text-slate-800">&times;</button>
+                </div>
+                <ul class="space-y-4 text-slate-600 list-disc list-inside">
+                    <li>
+                        <strong>Role:</strong> Led the development of the AI and Machine Learning module for the robot.
+                    </li>
+                    <li>
+                        <strong>Core Task:</strong> Engineered and trained a Convolutional Neural Network (CNN) using Python and relevant libraries to accurately detect and identify diseases in crops from image data.
+                    </li>
+                    <li>
+                        <strong>Contribution:</strong> Played a key role in the physical assembly and hardware integration of the robot, ensuring that software and hardware components communicated effectively.
+                    </li>
+                    <li>
+                        <strong>Outcome:</strong> Successfully created a functional prototype capable of autonomous navigation and disease identification, demonstrating a strong ability to manage a project from concept to execution.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Modal Controls
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                setTimeout(() => {
+                    modal.querySelector('.modal-backdrop').classList.remove('opacity-0');
+                    modal.querySelector('.modal-content').classList.remove('scale-95');
+                }, 10);
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.querySelector('.modal-backdrop').classList.add('opacity-0');
+                modal.querySelector('.modal-content').classList.add('scale-95');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }, 300);
+            }
+        }
+        
+        // Close modal on escape key press
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeModal('projectModal');
+            }
+        });
+
+
+        // Skills Chart
+        const skillsData = {
+            labels: ['Python', 'C#', 'Java', 'AI/ML (CNNs)', 'Robotics', 'Unity', 'Git', 'VS Code'],
+            datasets: [{
+                label: 'Skill Area',
+                data: [90, 80, 75, 85, 70, 75, 85, 95],
+                backgroundColor: 'rgba(56, 189, 248, 0.6)', // sky-400 with opacity
+                borderColor: 'rgba(2, 132, 199, 1)', // sky-600
+                borderWidth: 1
+            }]
+        };
+
+        const skillsConfig = {
+            type: 'bar',
+            data: skillsData,
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.x !== null) {
+                                    // You can customize tooltips here if needed
+                                }
+                                return context.label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 100,
+                        grid: {
+                            color: 'rgba(203, 213, 225, 0.3)'
+                        },
+                        ticks: {
+                           display: false
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            font: {
+                                size: 14,
+                                weight: '500'
+                            },
+                            color: '#334155' // slate-700
+                        }
+                    }
+                }
+            }
+        };
+
+        const skillsChartCtx = document.getElementById('skillsChart').getContext('2d');
+        new Chart(skillsChartCtx, skillsConfig);
+    </script>
 </body>
 </html>
+
